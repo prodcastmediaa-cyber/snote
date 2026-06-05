@@ -1,18 +1,9 @@
 import { contextBridge, ipcRenderer } from 'electron'
-import { electronAPI } from '@electron-toolkit/preload'
 
-const api = {}
-
-if (process.contextIsolated) {
-  try {
-    contextBridge.exposeInMainWorld('electron', electronAPI)
-    contextBridge.exposeInMainWorld('api', api)
-  } catch (error) {
-    console.error(error)
-  }
-} else {
-  // @ts-ignore
-  window.electron = electronAPI
-  // @ts-ignore
-  window.api = api
-}
+contextBridge.exposeInMainWorld('noteApi', {
+  get:      (id: string)                              => ipcRenderer.invoke('note:get', id),
+  update:   (id: string, updates: Record<string, unknown>) => ipcRenderer.invoke('note:update', id, updates),
+  delete:   (id: string)                              => ipcRenderer.invoke('note:delete', id),
+  create:   ()                                        => ipcRenderer.invoke('note:create'),
+  minimize: ()                                        => ipcRenderer.invoke('note:minimize'),
+})
