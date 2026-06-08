@@ -38,6 +38,13 @@
     "vite": "^5.4.21"
   },
   "dependencies": {
+    "@tiptap/extension-highlight": "^3.26.0",
+    "@tiptap/extension-placeholder": "^3.26.0",
+    "@tiptap/extension-text-align": "^3.26.0",
+    "@tiptap/extension-underline": "^3.26.0",
+    "@tiptap/pm": "^3.26.0",
+    "@tiptap/react": "^3.26.0",
+    "@tiptap/starter-kit": "^3.26.0",
     "@types/react": "^19.2.16",
     "@types/react-dom": "^19.2.3",
     "react": "^19.2.7",
