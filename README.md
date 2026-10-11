@@ -9,8 +9,8 @@
 A sticky note that floats on top of every screen, every monitor, every Space — staring at you until you actually do the thing.</p>
 
 <p align="center">
-  <a href="https://github.com/prodcastmediaa-cyber/snote/releases/latest/download/SNOTE-arm64.dmg"><b>↓ Download for macOS (Apple Silicon)</b></a> ·
-  <a href="https://github.com/prodcastmediaa-cyber/snote/releases/latest/download/SNOTE-x64.dmg">Intel Mac</a> ·
+  <a href="https://github.com/rozgaarrhythms/snote/releases/latest/download/SNOTE-arm64.dmg"><b>↓ Download for macOS (Apple Silicon)</b></a> ·
+  <a href="https://github.com/rozgaarrhythms/snote/releases/latest/download/SNOTE-x64.dmg">Intel Mac</a> ·
   <a href="https://snote-website.vercel.app">Website</a>
 </p>
 
@@ -36,7 +36,7 @@ Your open notes do survive a restart — a note on your screen is a promise, not
 
 ## Install
 
-1. Download the DMG for your Mac from the [latest release](https://github.com/prodcastmediaa-cyber/snote/releases/latest).
+1. Download the DMG for your Mac from the [latest release](https://github.com/rozgaarrhythms/snote/releases/latest).
 2. Open it and drag **SNOTE** into **Applications**.
 3. First launch: macOS will say it can't verify the developer (SNOTE isn't notarized — we're indie, not dangerous). Open **System Settings → Privacy & Security** and click **Open Anyway**. You only do this once.
 
