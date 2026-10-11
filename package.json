@@ -1,43 +1,74 @@
 {
-  "name": "sticky-note-application",
+  "name": "snote",
   "version": "1.0.0",
-  "description": "A macOS Sticky Note Application",
+  "description": "SNOTE \u2014 the sticky note that floats on top of every screen. No save button. On purpose.",
   "main": "out/main/index.js",
   "author": "Manvendra Kumar",
-  "license": "ISC",
+  "license": "MIT",
   "scripts": {
     "dev": "cross-env ELECTRON_RUN_AS_NODE= electron-vite dev",
     "build": "electron-vite build",
     "preview": "electron-vite preview",
     "package": "npm run build && electron-builder",
-    "package:mac": "npm run build && electron-builder --mac"
+    "package:mac": "npm run build && electron-builder --mac",
+    "release": "npm run build && electron-builder --mac"
   },
   "build": {
-    "appId": "com.manvendra.stickynotes",
-    "productName": "Sticky Notes",
+    "appId": "com.manvendra.snote",
+    "productName": "SNOTE",
+    "copyright": "\u00a9 Manvendra Kumar",
+    "files": [
+      "out/**/*",
+      "package.json"
+    ],
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
     "mac": {
       "category": "public.app-category.productivity",
+      "icon": "build/icon.png",
       "target": [
-        "dmg",
-        "zip"
-      ]
+        {
+          "target": "dmg",
+          "arch": [
+            "arm64",
+            "x64"
+          ]
+        }
+      ],
+      "identity": "-",
+      "minimumSystemVersion": "12.0"
     },
-    "directories": {
-      "output": "dist"
+    "dmg": {
+      "title": "SNOTE",
+      "artifactName": "SNOTE-${arch}.dmg",
+      "contents": [
+        {
+          "x": 150,
+          "y": 190
+        },
+        {
+          "x": 390,
+          "y": 190,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ],
+      "window": {
+        "width": 540,
+        "height": 380
+      },
+      "format": "ULFO"
+    },
+    "electronFuses": {
+      "runAsNode": false,
+      "enableNodeCliInspectArguments": false,
+      "enableNodeOptionsEnvironmentVariable": false,
+      "onlyLoadAppFromAsar": true
     }
   },
   "devDependencies": {
-    "@types/node": "^25.9.1",
-    "@vitejs/plugin-react": "^4.7.0",
-    "concurrently": "^10.0.3",
-    "cross-env": "^10.1.0",
-    "electron": "^35.7.5",
-    "electron-builder": "^26.8.1",
-    "electron-vite": "^3.1.0",
-    "typescript": "^6.0.3",
-    "vite": "^5.4.21"
-  },
-  "dependencies": {
     "@tiptap/extension-highlight": "^3.26.0",
     "@tiptap/extension-placeholder": "^3.26.0",
     "@tiptap/extension-text-align": "^3.26.0",
@@ -45,9 +76,23 @@
     "@tiptap/pm": "^3.26.0",
     "@tiptap/react": "^3.26.0",
     "@tiptap/starter-kit": "^3.26.0",
+    "@types/node": "^25.9.1",
     "@types/react": "^19.2.16",
     "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^4.7.0",
+    "concurrently": "^10.0.3",
+    "cross-env": "^10.1.0",
+    "electron": "^35.7.5",
+    "electron-builder": "^26.8.1",
+    "electron-vite": "^3.1.0",
     "react": "^19.2.7",
-    "react-dom": "^19.2.7"
+    "react-dom": "^19.2.7",
+    "typescript": "^6.0.3",
+    "vite": "^5.4.21"
+  },
+  "homepage": "https://snote-website.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/prodcastmediaa-cyber/snote.git"
   }
 }

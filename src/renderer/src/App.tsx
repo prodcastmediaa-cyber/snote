@@ -24,68 +24,40 @@ function useNoteId() { return new URLSearchParams(window.location.search).get('n
 
 // ─── Toolbar icons ────────────────────────────────────────────────────────────
 
-function BoldIcon()   { return <svg width="12" height="12" viewBox="0 0 12 12"><text x="1" y="10" fontFamily="Georgia,serif" fontSize="12" fontWeight="bold" fill="currentColor">B</text></svg> }
-function ItalicIcon() { return <svg width="12" height="12" viewBox="0 0 12 12"><text x="2" y="10" fontFamily="Georgia,serif" fontSize="12" fontStyle="italic" fill="currentColor">I</text></svg> }
-function UnderlineIcon() {
-  return <svg width="12" height="13" viewBox="0 0 12 13">
-    <text x="2" y="10" fontFamily="Georgia,serif" fontSize="11" fill="currentColor">U</text>
-    <line x1="1" y1="12.5" x2="11" y2="12.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-  </svg>
-}
-function StrikeIcon() {
-  return <svg width="14" height="12" viewBox="0 0 14 12">
-    <text x="2" y="10" fontFamily="Georgia,serif" fontSize="11" fill="currentColor">S</text>
-    <line x1="0" y1="6" x2="14" y2="6" stroke="currentColor" strokeWidth="1.5"/>
-  </svg>
-}
-function BulletIcon() {
-  return <svg width="14" height="12" viewBox="0 0 14 12" fill="currentColor">
-    <circle cx="2" cy="3" r="1.5"/>
-    <circle cx="2" cy="7" r="1.5"/>
-    <circle cx="2" cy="11" r="1.5"/>
-    <rect x="5" y="2" width="9" height="2" rx="1"/>
-    <rect x="5" y="6" width="9" height="2" rx="1"/>
-    <rect x="5" y="10" width="9" height="2" rx="1"/>
-  </svg>
-}
-function HighlightIcon() {
-  return <svg width="14" height="12" viewBox="0 0 14 12" fill="none">
-    <rect x="1" y="2" width="12" height="7" rx="1.5" fill="currentColor" opacity="0.35"/>
-    <text x="2.5" y="9" fontFamily="Georgia,serif" fontSize="8" fill="currentColor" fontWeight="bold">H</text>
-  </svg>
-}
+const BoldIcon      = () => <svg width="12" height="12" viewBox="0 0 12 12"><text x="1" y="10" fontFamily="Georgia,serif" fontSize="12" fontWeight="bold" fill="currentColor">B</text></svg>
+const ItalicIcon    = () => <svg width="12" height="12" viewBox="0 0 12 12"><text x="2" y="10" fontFamily="Georgia,serif" fontSize="12" fontStyle="italic" fill="currentColor">I</text></svg>
+const UnderlineIcon = () => <svg width="12" height="13" viewBox="0 0 12 13"><text x="2" y="10" fontFamily="Georgia,serif" fontSize="11" fill="currentColor">U</text><line x1="1" y1="12.5" x2="11" y2="12.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
+const StrikeIcon    = () => <svg width="14" height="12" viewBox="0 0 14 12"><text x="2" y="10" fontFamily="Georgia,serif" fontSize="11" fill="currentColor">S</text><line x1="0" y1="6" x2="14" y2="6" stroke="currentColor" strokeWidth="1.5"/></svg>
+const BulletIcon    = () => <svg width="14" height="12" viewBox="0 0 14 12" fill="currentColor"><circle cx="2" cy="3" r="1.5"/><circle cx="2" cy="7" r="1.5"/><circle cx="2" cy="11" r="1.5"/><rect x="5" y="2" width="9" height="2" rx="1"/><rect x="5" y="6" width="9" height="2" rx="1"/><rect x="5" y="10" width="9" height="2" rx="1"/></svg>
+const HighlightIcon = () => <svg width="14" height="12" viewBox="0 0 14 12" fill="none"><rect x="1" y="2" width="12" height="7" rx="1.5" fill="currentColor" opacity="0.35"/><text x="2.5" y="9" fontFamily="Georgia,serif" fontSize="8" fill="currentColor" fontWeight="bold">H</text></svg>
 
 // ─── Toolbar ─────────────────────────────────────────────────────────────────
 
-interface ToolbarProps {
-  editor: ReturnType<typeof useEditor>
-  palette: typeof COLORS[ColorKey]
-}
-
-function Toolbar({ editor, palette }: ToolbarProps): React.JSX.Element | null {
+function Toolbar({ editor, palette }: { editor: ReturnType<typeof useEditor>; palette: typeof COLORS[ColorKey] }): React.JSX.Element | null {
   if (!editor) return null
 
-  const btn = (active: boolean, onClick: () => void, title: string, children: React.ReactNode) => (
+  const btn = (active: boolean, onClick: () => void, title: string, icon: React.ReactNode) => (
     <button
-      className={`fmt-btn no-drag${active ? ' fmt-btn--active' : ''}`}
+      key={title}
+      className={`fmt-btn${active ? ' fmt-btn--active' : ''}`}
       onMouseDown={e => { e.preventDefault(); onClick() }}
       title={title}
       style={active ? { background: 'rgba(0,0,0,0.15)', color: palette.text } : {}}
     >
-      {children}
+      {icon}
     </button>
   )
 
   return (
-    <div className="toolbar no-drag" style={{ borderColor: 'rgba(0,0,0,0.1)', background: palette.header }}>
-      {btn(editor.isActive('bold'),      () => editor.chain().focus().toggleBold().run(),      'Bold (⌘B)',        <BoldIcon/>)}
-      {btn(editor.isActive('italic'),    () => editor.chain().focus().toggleItalic().run(),    'Italic (⌘I)',      <ItalicIcon/>)}
-      {btn(editor.isActive('underline'), () => editor.chain().focus().toggleUnderline().run(), 'Underline (⌘U)',   <UnderlineIcon/>)}
-      {btn(editor.isActive('strike'),    () => editor.chain().focus().toggleStrike().run(),    'Strikethrough',    <StrikeIcon/>)}
+    <div className="toolbar" style={{ background: palette.header, borderColor: 'rgba(0,0,0,0.1)' }}>
+      {btn(editor.isActive('bold'),       () => editor.chain().focus().toggleBold().run(),       'Bold (⌘B)',       <BoldIcon/>)}
+      {btn(editor.isActive('italic'),     () => editor.chain().focus().toggleItalic().run(),     'Italic (⌘I)',     <ItalicIcon/>)}
+      {btn(editor.isActive('underline'),  () => editor.chain().focus().toggleUnderline().run(),  'Underline (⌘U)', <UnderlineIcon/>)}
+      {btn(editor.isActive('strike'),     () => editor.chain().focus().toggleStrike().run(),     'Strikethrough',   <StrikeIcon/>)}
       <div className="fmt-sep"/>
-      {btn(editor.isActive('bulletList'), () => editor.chain().focus().toggleBulletList().run(), 'Bullet list',   <BulletIcon/>)}
+      {btn(editor.isActive('bulletList'), () => editor.chain().focus().toggleBulletList().run(), 'Bullet list',     <BulletIcon/>)}
       <div className="fmt-sep"/>
-      {btn(editor.isActive('highlight'), () => editor.chain().focus().toggleHighlight().run(), 'Highlight',       <HighlightIcon/>)}
+      {btn(editor.isActive('highlight'),  () => editor.chain().focus().toggleHighlight().run(),  'Highlight',       <HighlightIcon/>)}
     </div>
   )
 }
@@ -93,29 +65,64 @@ function Toolbar({ editor, palette }: ToolbarProps): React.JSX.Element | null {
 // ─── Main component ───────────────────────────────────────────────────────────
 
 export default function App(): React.JSX.Element {
-  const noteId = useNoteId()
-  const [note, setNote]       = useState<NoteData | null>(null)
-  const [colorKey, setColorKey] = useState<ColorKey>('yellow')
-  const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const noteId               = useNoteId()
+  const [note, setNote]      = useState<NoteData | null>(null)
+  const [colorKey, setColor] = useState<ColorKey>('yellow')
+  const saveTimer            = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  // Load note on mount
+  // ── Custom drag state ──────────────────────────────────────────────────────
+  // Uses screenX/screenY (real screen coords) so win.setPosition() gets correct deltas
+  const drag = useRef<{ active: boolean; lastX: number; lastY: number }>({ active: false, lastX: 0, lastY: 0 })
+
+  useEffect(() => {
+    const onMove = (e: MouseEvent) => {
+      if (!drag.current.active) return
+      const dx = e.screenX - drag.current.lastX
+      const dy = e.screenY - drag.current.lastY
+      drag.current.lastX = e.screenX
+      drag.current.lastY = e.screenY
+      if (dx !== 0 || dy !== 0) window.noteApi.drag(dx, dy)
+    }
+    const onUp = () => { drag.current.active = false }
+
+    document.addEventListener('mousemove', onMove)
+    document.addEventListener('mouseup',   onUp)
+    return () => {
+      document.removeEventListener('mousemove', onMove)
+      document.removeEventListener('mouseup',   onUp)
+    }
+  }, [])
+
+  const startDrag = (e: React.MouseEvent) => {
+    if (e.button !== 0) return
+    if ((e.target as Element).closest('button, input, textarea, [contenteditable]')) return
+    e.preventDefault()
+    drag.current = { active: true, lastX: e.screenX, lastY: e.screenY }
+  }
+
+  // ── Load note ──────────────────────────────────────────────────────────────
+
   useEffect(() => {
     if (!noteId) return
     window.noteApi.get(noteId).then(data => {
       if (!data) return
       setNote(data)
-      setColorKey(isColorKey(data.color) ? data.color : 'yellow')
+      setColor(isColorKey(data.color) ? data.color : 'yellow')
     })
   }, [noteId])
 
-  // Debounced save
-  const scheduleSave = useCallback((html: string) => {
+  // ── Debounced disk save + instant cache ───────────────────────────────────
+
+  const handleContentChange = useCallback((html: string) => {
     if (!noteId) return
+    // Cache immediately — main process flushes this on quit
+    window.noteApi.cache(noteId, html)
+    // Debounce actual disk write
     if (saveTimer.current) clearTimeout(saveTimer.current)
-    saveTimer.current = setTimeout(() => {
-      window.noteApi.update(noteId, { content: html })
-    }, 400)
+    saveTimer.current = setTimeout(() => window.noteApi.update(noteId, { content: html }), 300)
   }, [noteId])
+
+  // ── Editor ─────────────────────────────────────────────────────────────────
 
   const editor = useEditor({
     extensions: [
@@ -125,34 +132,41 @@ export default function App(): React.JSX.Element {
       Placeholder.configure({ placeholder: 'Write your note…' }),
     ],
     content: '',
-    editorProps: {
-      attributes: {
-        class: 'editor-body no-drag',
-        spellcheck: 'true',
-      },
-    },
-    onUpdate: ({ editor }) => scheduleSave(editor.getHTML()),
+    editorProps: { attributes: { class: 'editor-body', spellcheck: 'true' } },
+    onUpdate: ({ editor }) => handleContentChange(editor.getHTML()),
   })
 
   // Set content once note loads
   useEffect(() => {
     if (!editor || !note) return
-    // Gracefully handle both plain-text and HTML content from older versions
-    const html = note.content.startsWith('<') ? note.content : `<p>${note.content}</p>`
+    const html = note.content && note.content.startsWith('<')
+      ? note.content
+      : note.content ? `<p>${note.content}</p>` : ''
     editor.commands.setContent(html, false)
     editor.commands.focus('end')
   }, [editor, note?.id])
+
+  // Flush cache on window unload (terminal killed, etc.)
+  useEffect(() => {
+    const flush = () => {
+      if (noteId && editor) window.noteApi.cache(noteId, editor.getHTML())
+    }
+    window.addEventListener('beforeunload', flush)
+    return () => window.removeEventListener('beforeunload', flush)
+  }, [noteId, editor])
+
+  // ── Handlers ───────────────────────────────────────────────────────────────
 
   const palette = COLORS[colorKey]
 
   const handleColor = async (key: ColorKey) => {
     if (!noteId) return
-    setColorKey(key)
+    setColor(key)
     setNote(prev => prev ? { ...prev, color: key } : prev)
     await window.noteApi.update(noteId, { color: key })
   }
 
-  const handleDelete  = async () => { if (!noteId) return; if (saveTimer.current) clearTimeout(saveTimer.current); await window.noteApi.delete(noteId) }
+  const handleClose   = () => window.noteApi.closeRequested()   // "did you do the thing?" → tear it up
   const handleMinimize = () => window.noteApi.minimize()
   const handleNewNote  = () => window.noteApi.create()
 
@@ -161,9 +175,9 @@ export default function App(): React.JSX.Element {
   return (
     <div className="note" style={{ '--bg': palette.bg, '--header': palette.header, '--text': palette.text } as React.CSSProperties}>
 
-      {/* ── Header / drag handle ── */}
-      <div className="header drag">
-        <div className="colors no-drag">
+      {/* ── Header — drag via JS, not CSS ── */}
+      <div className="header" onMouseDown={startDrag} style={{ cursor: 'grab' }}>
+        <div className="colors">
           {(Object.keys(COLORS) as ColorKey[]).map(key => (
             <button
               key={key}
@@ -174,11 +188,11 @@ export default function App(): React.JSX.Element {
             />
           ))}
         </div>
-        <div className="controls no-drag">
+        <div className="controls">
           <button className="btn btn--min"   onClick={handleMinimize} title="Minimize">
-            <svg width="10" height="2" viewBox="0 0 10 2"><rect width="10" height="2" rx="1" fill="currentColor"/></svg>
+            <svg width="10" height="2"  viewBox="0 0 10 2"> <rect width="10" height="2" rx="1" fill="currentColor"/></svg>
           </button>
-          <button className="btn btn--close" onClick={handleDelete}   title="Delete note">
+          <button className="btn btn--close" onClick={handleClose}    title="Tear it up">
             <svg width="10" height="10" viewBox="0 0 10 10">
               <line x1="1" y1="1" x2="9" y2="9" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
               <line x1="9" y1="1" x2="1" y2="9" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
@@ -191,10 +205,10 @@ export default function App(): React.JSX.Element {
       <Toolbar editor={editor} palette={palette} />
 
       {/* ── Editor body ── */}
-      <EditorContent editor={editor} className="editor-wrap no-drag" />
+      <EditorContent editor={editor} className="editor-wrap" />
 
       {/* ── Footer ── */}
-      <div className="footer no-drag" style={{ background: palette.header }}>
+      <div className="footer" style={{ background: palette.header }}>
         <button className="new-btn" onClick={handleNewNote} title="New note  ⌘⇧N">+ New Note</button>
         <span className="hint">⌘⇧N</span>
       </div>
