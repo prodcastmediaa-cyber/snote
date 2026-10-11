@@ -6,7 +6,7 @@
 </p>
 
 <p align="center"><b>The sticky note Apple forgot to build.</b><br>
-A sticky note that floats on top of every screen, every monitor, every Space — staring at you until you actually do the thing.</p>
+A sticky note that floats on top of every screen, every monitor, every Space, staring at you until you actually do the thing.</p>
 
 <p align="center">
   <a href="https://github.com/rozgaarrhythms/snote/releases/latest/download/SNOTE-arm64.dmg"><b>↓ Download for macOS (Apple Silicon)</b></a> ·
@@ -22,7 +22,7 @@ A sticky note that floats on top of every screen, every monitor, every Space —
 
 ## Why
 
-Your notes app is where tasks go to die. Every digital sticky note makes the same mistake: it disappears into a tab, buried under 500 other tabs. A sticky note has exactly two jobs — **be visible** and **stick**.
+Your notes app is where tasks go to die. Every digital sticky note makes the same mistake: it disappears into a tab, buried under 500 other tabs. A sticky note has exactly two jobs: **be visible** and **stick**.
 
 SNOTE hovers over everything, the way a Google Meet window does. Switch apps, switch desktops, go full screen. Still there. Still judging.
 
@@ -32,13 +32,13 @@ SNOTE hovers over everything, the way a Google Meet window does. Switch apps, sw
 
 Saving a sticky note is procrastination with extra steps. SNOTE gives you one option: **do the thing, then tear it up.** Hit ✕ and it's gone for good.
 
-Your open notes do survive a restart — a note on your screen is a promise, not an archive.
+Your open notes do survive a restart. A note on your screen is a promise, not an archive.
 
 ## Install
 
 1. Download the DMG for your Mac from the [latest release](https://github.com/rozgaarrhythms/snote/releases/latest).
 2. Open it and drag **SNOTE** into **Applications**.
-3. First launch: macOS will say it can't verify the developer (SNOTE isn't notarized — we're indie, not dangerous). Open **System Settings → Privacy & Security** and click **Open Anyway**. You only do this once.
+3. First launch: macOS will say it can't verify the developer (SNOTE isn't notarized yet; we're indie, not dangerous). Open **System Settings → Privacy & Security** and click **Open Anyway**. You only do this once.
 
 Requires macOS 12 or later.
 
@@ -49,7 +49,7 @@ Requires macOS 12 or later.
 | New note | `⌘⇧N` from anywhere, or **+ New Note** |
 | Move | drag the coloured header |
 | Colour | the dots in the header |
-| Format | **B** / *I* / U / ~~S~~ / lists / highlight — or `⌘B`, `⌘I`, `⌘U` |
+| Format | **B** / *I* / U / ~~S~~ / lists / highlight, or `⌘B`, `⌘I`, `⌘U` |
 | Done | ✕ → **Tear it up** |
 | Menu bar 📝 | new note, show/hide all, **Open at Login**, quit |
 
@@ -65,7 +65,7 @@ Electron + React + TypeScript + Tiptap. Notes are plain JSON in `~/Library/Appli
 
 ## Contributing
 
-Issues and pull requests are welcome — bug reports, ideas, roasts. The v3 idea on the table is a tiny floating orb that expands on hover; tell us if you want it.
+Issues and pull requests are welcome: bug reports, ideas, roasts. The v3 idea on the table is a tiny floating orb that expands on hover; tell us if you want it.
 
 Reviews from real users live on the thread at [snote-website.vercel.app](https://snote-website.vercel.app/#reviews).
 
