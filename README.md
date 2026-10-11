@@ -1,5 +1,8 @@
 <p align="center">
-  <img src="docs/assets/logo-snote.png" alt="SNOTE" width="320">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/assets/logo-snote-dark.png">
+    <img src="docs/assets/logo-snote.png" alt="SNOTE" width="320">
+  </picture>
 </p>
 
 <p align="center"><b>The sticky note Apple forgot to build.</b><br>
